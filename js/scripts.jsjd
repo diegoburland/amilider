@@ -1,0 +1,210 @@
+(function ($, root, undefined) {
+	$(function () {
+		'use strict';
+		$(window).load(function(){
+			$('#loadPage').fadeOut('slow');
+		})
+
+		$("#openPreheader").click(function(){
+			//$('.preheader').slideToggle();
+		})
+
+		var active = true;
+
+		$('.toggleMenu').click(function(){
+			if (active) {
+				$('.headerMovil').animate({
+		      left: 0,
+		    }, "slow")
+		    $('.headerMovil .toggleMenu i').addClass('fa-times');
+		    $('.headerMovil .toggleMenu i').removeClass('fa-bars');
+		    active = false;
+			}else{
+				$('.headerMovil').animate({
+		      left: -286,
+		    }, "slow")
+		    $('.headerMovil .toggleMenu i').removeClass('fa-times');
+		    $('.headerMovil .toggleMenu i').addClass('fa-bars');
+		    active = true;
+			}
+		})
+		
+		var URLactual = window.location;
+		if (URLactual == "https://www.laboratoriosathos.com/mi-cuenta/?init/") {
+			$('#customer_login .u-column2').css('display','none');
+			$('#customer_login .u-column1').css('width','100%');
+		}
+		if (URLactual == "https://www.laboratoriosathos.com/mi-cuenta/?reg/") {
+			$('#customer_login .u-column2').css('width','100%');
+			$('#customer_login .u-column1').css('display','none');
+		}
+
+		
+
+	 $('.slidePrimaryInt').slick({
+		  slidesToShow: 1,
+		  slidesToScroll: 1,
+		  arrows: false,
+		  fade: true,
+		  asNavFor: '.slideSecundaryIn'
+		});
+
+		$('.slideSecundaryIn').slick({
+		  slidesToShow: 3,
+		  slidesToScroll: 1,
+		  asNavFor: '.slidePrimaryInt',
+		  dots: true,
+		  centerMode: true,
+		  focusOnSelect: true
+		});
+
+		function asingnZoom(){
+			$(".slidePrimaryInt .slick-current").elevateZoom({
+		    zoomType	: "lens",
+			  lensShape : "round",
+			  lensSize  : 400
+			});
+		}
+
+		$('.slideSecundaryIn img').each(function(){
+			$(this).click(function(){
+				 var urlImg =  $(this).data('src');
+				 $('.slidePrimaryInt .slick-current').attr('src', urlImg);
+				 $('.slidePrimaryInt .slick-current').data('zoomImage', urlImg);
+				 if ($(window).width() >= 991) {
+				 	asingnZoom();
+				 }
+			})
+		})
+
+		if ($(window).width() >= 991) {
+			asingnZoom();
+		}
+
+		$(".variations .value select").change(function(){
+			var elem = $(this).val()
+			$("#"+elem).click();
+		})
+		
+		$("#topProduct").click(function(){
+			$("body, html").animate({
+				scrollTop : 0
+			})
+		})
+
+		$('.slideHistoria').slick({
+			centerMode: true,
+		  centerPadding: '0px',
+		  slidesToShow: 3,
+		  autoplay: true,
+		  arrows: true,
+		  responsive: [
+		 	{
+		 		breakpoint: 768,
+		 		settings: {
+		 			slidesToShow: 1,
+		 		}
+		 	},
+		]
+		});
+		
+		 
+		$('.paquetesSlide').slick({
+			slidesToShow: 3,
+			dots: false,
+			arrows: true,
+			autoplay: true,
+			responsive: [
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+				}
+			},
+			]
+		});
+
+		// $('.slickSlide').slick({
+		// 	slidesToShow: 5,
+		// 	dots: false,
+		// 	arrows: true,
+		// 	autoplay: true,
+		// 	responsive: [
+		// 	{
+		// 		breakpoint: 768,
+		// 		settings: {
+		// 			slidesToShow: 2,
+		// 		}
+		// 	},
+		// 	]
+		// });
+
+
+	$('.slickPaginator').slick({
+    slidesToShow: 1,
+    dots: true,
+    customPaging: function(slider, i) {
+        var thumb = $(slider.$slides[i]).data();
+        return '<a>' + (i + 1) + '</a>';
+    },
+    fade: true,
+    arrows: false,
+	});
+
+	function hiddenNotices(classElem){
+			setTimeout(function(){
+				$(classElem).addClass("animated bounceOut");
+			}, 7000);
+		}
+
+		if ($(".woocommerce-message")) {
+			hiddenNotices(".woocommerce-message")
+		}
+		if ($(".woocommerce-error")) {
+			hiddenNotices(".woocommerce-error")
+		}
+		if ($(".woocommerce-info")) {
+			hiddenNotices(".woocommerce-info")
+		}
+
+
+		$("body").click(function(){
+			$(".woocommerce-NoticeGroup").click(function(){
+				$(this).fadeOut();
+			})
+			
+			$(".woocommerce-message").click(function(){
+				$(this).fadeOut();
+			})
+			
+			
+			$(".woocommerce-error").click(function(){
+				$(this).fadeOut();
+			})
+			
+			
+			$(".woocommerce-info").click(function(){
+				$(this).fadeOut();
+			})
+		})
+		
+		
+	
+
+	
+
+	// $('.slideLightbox').slickLightbox();
+
+	 $(document).on('scroll', function(e) { 
+      var desplazamientoActual = $(document).scrollTop();
+      // console.log(desplazamientoActual);
+      if (desplazamientoActual > 500) {
+      	$('.productFixed').fadeIn(500);
+      }else{
+      	$('.productFixed').fadeOut(500);
+      	
+      }
+    })
+
+});
+})(jQuery, this);
